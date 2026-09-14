@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>カレンダー</title>
+    <!-- CSSファイルの読み込み -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
+</head>
+
+<body>
+
+    <h1>カレンダー</h1>
+    <h2 id="month"></h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>日</th>
+                <th>月</th>
+                <th>火</th>
+                <th>水</th>
+                <th>木</th>
+                <th>金</th>
+                <th>土</th>
+            </tr>
+        </thead>
+
+        <tbody id="calendar">
+        </tbody>
+    </table>
+
+    <br/>
+    <div id="schedule">日付をクリックしてください</div>
+
+    <!-- JavaScript ファイルの読み込み-->
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+
+    {% for event in events %}
+    <p>タイトル：{{event.title}}</p>
+    <p>日付：{{event.date}}</p>
+    <p>開始時刻：{{event.start_time}}</p>
+    <p>終了時刻：{{event.end_time}}</p>
+    <p>コメント：{{event.description}}</p>
+    <br/>
+    {% endfor %}
+
+    <br/>
+    <a href="{{url_for('add_events')}}">予定を追加</a>
+    <!--<a href="{{url_for('edit_events')}}">予定を編集・削除</a>-->
+    
+
+</body>
+
+</html>
