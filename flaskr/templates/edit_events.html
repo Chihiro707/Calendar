@@ -3,12 +3,36 @@
 <html lang="ja">
 
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"/>
     <title>カレンダー</title>
 </head>
 
 <body>
+	<h1>予定を編集</h1>
+	<form method="post" action="{{url_for('edit_event',event_id=event.id)}}">
+		
+		<label>予定名</label>
+		<input type="text" name="title" value="{{event.title}}" required="required"/>
+		<br/>
+		
+		<label>日付</label>
+		<input type="date" name="date" value="{{event.date}}" required="required"/>
+		<br/>
+		
+		<label>開始時刻</label>
+		<input type="time" name="start_time" value="{{event.start_time}}"/>
+		<br/>
 
+		<label>終了時刻</label>
+		<input type="time" name="end_time" value="{{event.end_time}}"/>
+		<br/>
+		
+		<label>メモ</label>
+		<textarea name="description">{{event.description}}</textarea>
+		<br/>
+		
+		<input type="submit" value="予定を変更"/>
+	</form>
 </body>
 
 </html>

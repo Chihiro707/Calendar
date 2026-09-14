@@ -49,3 +49,5 @@ for (let day = 1; day <= lastDate; day++) {
 if (row.children.length > 0) {
     calendar.appendChild(row);
 }
+
+const edit = document.getElementById("edit");

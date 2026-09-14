@@ -38,13 +38,23 @@
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 
 
-    {% for event in events %}
-    <p>タイトル：{{event.title}}</p>
-    <p>日付：{{event.date}}</p>
-    <p>開始時刻：{{event.start_time}}</p>
-    <p>終了時刻：{{event.end_time}}</p>
-    <p>コメント：{{event.description}}</p>
+    {% for event in dayevents %}
+	
+	<div>
+        <p>タイトル：{{event.title}}</p>
+        <p>日付：{{event.date}}</p>
+        <p>時刻：{{event.start_time}}～{{event.end_time}}</p>
+        <p>コメント：{{event.description}}</p>
+	    <a href="{{url_for('edit_event', event_id=event.id)}}">編集</a>
+		
+		<form method="POST" action="{{url_for('delete_event', event_id=event.id)}}">
+			<button type="submit">
+				削除
+			</button>
+		</form>
+	</div>
     <br/>
+	
     {% endfor %}
 
     <br/>
