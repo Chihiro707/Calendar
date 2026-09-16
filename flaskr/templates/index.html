@@ -10,58 +10,65 @@
 </head>
 
 <body>
-
-    <h1>カレンダー</h1>
-    <h2 id="month"></h2>
-
-    <table>
-        <thead>
-            <tr>
-                <th>日</th>
-                <th>月</th>
-                <th>火</th>
-                <th>水</th>
-                <th>木</th>
-                <th>金</th>
-                <th>土</th>
-            </tr>
-        </thead>
-
-        <tbody id="calendar">
-        </tbody>
-    </table>
-
-    <br/>
-    <div id="schedule">日付をクリックしてください</div>
-
-    <!-- JavaScript ファイルの読み込み-->
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
-
-
-    {% for event in dayevents %}
 	
-	<div>
-        <p>タイトル：{{event.title}}</p>
-        <p>日付：{{event.date}}</p>
-        <p>時刻：{{event.start_time}}～{{event.end_time}}</p>
-        <p>コメント：{{event.description}}</p>
-	    <a href="{{url_for('edit_event', event_id=event.id)}}">編集</a>
-		
-		<form method="POST" action="{{url_for('delete_event', event_id=event.id)}}">
-			<button type="submit">
-				削除
-			</button>
-		</form>
+	<script>const selectedDate = "{{date or ''}}"</script>
+
+	<div class="calendar-area">
+        <h1>カレンダー</h1>
+        <h2 id="month"></h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>日</th>
+                    <th>月</th>
+                    <th>火</th>
+                    <th>水</th>
+                    <th>木</th>
+                    <th>金</th>
+                    <th>土</th>
+                </tr>
+            </thead>
+
+            <tbody id="calendar">
+            </tbody>
+        </table>
 	</div>
+
+	<button id ="previous-month">先月</button>
+	<button id="next-month">翌月</button>
+
     <br/>
+
+    <div class="schedule">
+		{% if date %}
+		<h2>{{date}}の予定</h2>
+		{% endif %}
+		
+        {% for event in dayevents %}
 	
-    {% endfor %}
+	    <div>
+            <p>タイトル：{{event.title}}</p>
+            <p>時刻：{{event.start_time}}～{{event.end_time}}</p>
+            <p>コメント：{{event.description}}</p>
+			<button onclick="location.href='{{url_for('edit_event', event_id=event.id)}}'">編集</button>
+		
+		    <form method="POST" action="{{url_for('delete_event', event_id=event.id)}}">
+			    <button type="submit">
+				    削除
+			    </button>
+		    </form>
+	    </div>
+        <br/>
+	
+        {% endfor %}
+	</div>
 
     <br/>
     <a href="{{url_for('add_events')}}">予定を追加</a>
-    <!--<a href="{{url_for('edit_events')}}">予定を編集・削除</a>-->
-    
 
+	<!-- JavaScript ファイルの読み込み-->
+	<script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 
 </html>
