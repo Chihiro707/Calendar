@@ -1,0 +1,63 @@
+@charset "utf-8";
+
+/* base style */
+body{
+	font-family: "Noto Sans JP", sans-serif;
+	font-optical-sizing: auto;
+	font-weight: 400;
+	font-style: normal;
+
+	font-size: 15px;
+	line-height: 1.5;
+	color: #333;
+}
+
+/* style */
+.container{
+	display: flex;
+	width: 100%;
+}
+
+.calendar-area{
+	width: 50%;
+	padding: 20px;
+	box-sizing: border-box;
+	flex-shrink: 0;
+}
+
+.schedule{
+	width: 50%;
+	padding: 20px;
+	box-sizing: border-box;
+	flex: 1;
+	border-left: 1px solid #ccc
+}
+
+.switch-month{
+	display: flex;
+	width: 100%;
+}
+
+.calendar-table{
+	width: min(500px,80%);
+	font-size: 20px;
+	padding: 20px;
+	box-sizing: border-box;
+	order: 2;
+}
+
+#previous-month{
+	width: 10%;
+	height: 5px;
+	padding: 20px;
+	box-sizing: border-box;
+	order: 1;
+}
+
+#next-month{
+	width: 10%;
+	height: 5px;
+	padding: 20px;
+	box-sizing: border-box;
+	order: 3;
+}

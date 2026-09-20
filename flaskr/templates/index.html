@@ -5,67 +5,78 @@
 <head>
     <meta charset="UTF-8"/>
     <title>カレンダー</title>
+
+	<!--Google Fonts-->
+	<link rel="preconnect" href="https://fonts.googleapis.com"/>
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""/>
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet"/>
+	
     <!-- CSSファイルの読み込み -->
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/sanitize.css') }}"/>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
 </head>
 
 <body>
 	
 	<script>const selectedDate = "{{date or ''}}"</script>
-
-	<div class="calendar-area">
-        <h1>カレンダー</h1>
-        <h2 id="month"></h2>
-
-        <table>
-            <thead>
-                <tr>
-                    <th>日</th>
-                    <th>月</th>
-                    <th>火</th>
-                    <th>水</th>
-                    <th>木</th>
-                    <th>金</th>
-                    <th>土</th>
-                </tr>
-            </thead>
-
-            <tbody id="calendar">
-            </tbody>
-        </table>
-	</div>
-
-	<button id ="previous-month">先月</button>
-	<button id="next-month">翌月</button>
-
-    <br/>
-
-    <div class="schedule">
-		{% if date %}
-		<h2>{{date}}の予定</h2>
-		{% endif %}
-		
-        {% for event in dayevents %}
 	
-	    <div>
-            <p>タイトル：{{event.title}}</p>
-            <p>時刻：{{event.start_time}}～{{event.end_time}}</p>
-            <p>コメント：{{event.description}}</p>
-			<button onclick="location.href='{{url_for('edit_event', event_id=event.id)}}'">編集</button>
-		
-		    <form method="POST" action="{{url_for('delete_event', event_id=event.id)}}">
-			    <button type="submit">
-				    削除
-			    </button>
-		    </form>
-	    </div>
-        <br/>
-	
-        {% endfor %}
-	</div>
+	<div class="container">
 
-    <br/>
-    <a href="{{url_for('add_events')}}">予定を追加</a>
+		<div class="calendar-area">
+			<h1>カレンダー</h1>
+			<h2 id="month"></h2>
+
+			<div class="switch-month">
+				<table class="calendar-table">
+					<thead>
+						<tr>
+							<th>日</th>
+							<th>月</th>
+							<th>火</th>
+							<th>水</th>
+							<th>木</th>
+							<th>金</th>
+							<th>土</th>
+						</tr>
+					</thead>
+
+					<tbody id="calendar">
+					</tbody>
+				</table>
+		
+				<button id ="previous-month">←</button>
+				<button id="next-month">→</button>
+			</div>
+		
+			<a href="{{url_for('add_events')}}">予定を追加</a>
+		
+		</div>
+
+		<div class="schedule">
+			{% if date %}
+			<h2>{{date}}の予定</h2>
+			{% endif %}
+		
+			{% for event in dayevents %}
+	
+			<div>
+				<p>タイトル：{{event.title}}</p>
+				<p>時刻：{{event.start_time}}～{{event.end_time}}</p>
+				<p>コメント：{{event.description}}</p>
+				<button onclick="location.href='{{url_for('edit_event', event_id=event.id)}}'">編集</button>
+		
+				<form method="POST" action="{{url_for('delete_event', event_id=event.id)}}">
+					<button type="submit">
+						削除
+					</button>
+				</form>
+			</div>
+			<br/>
+	
+			{% endfor %}
+		</div>
+		
+	</div>
 
 	<!-- JavaScript ファイルの読み込み-->
 	<script src="{{ url_for('static', filename='js/script.js') }}"></script>
