@@ -12,10 +12,11 @@ body{
 	color: #333;
 }
 
-/* style */
+/* container */
 .container{
 	display: flex;
 	width: 100%;
+	height: 100%;
 }
 
 .calendar-area{
@@ -27,37 +28,66 @@ body{
 
 .schedule{
 	width: 50%;
+	height: 500px;
 	padding: 20px;
+	margin: 10px;
 	box-sizing: border-box;
 	flex: 1;
-	border-left: 1px solid #ccc
+	border: 1px solid #ccc;
+	overflow-y: auto;
+}
+
+/* calendar-area */
+h1{
+	text-align: center;
+}
+
+.add-schedule{
+	display: block;
+	text-align: center;
+	margin-top: 20px;
+	font-size: 20px;
+}
+
+#month{
+	text-align: center;
 }
 
 .switch-month{
 	display: flex;
+	justify-content: center;
 	width: 100%;
 }
 
 .calendar-table{
-	width: min(500px,80%);
+	width: 300px;
+	height: 300px;
 	font-size: 20px;
 	padding: 20px;
 	box-sizing: border-box;
 	order: 2;
 }
 
-#previous-month{
-	width: 10%;
-	height: 5px;
-	padding: 20px;
+#previous-month,
+#next-month{
+	width: 50px;
+	height: 50px;
+	margin-top: 125px;
 	box-sizing: border-box;
+}
+
+#previous-month{
+	margin-right: 20px;
 	order: 1;
 }
 
 #next-month{
-	width: 10%;
-	height: 5px;
-	padding: 20px;
-	box-sizing: border-box;
+	margin-left: 20px;
 	order: 3;
+}
+
+/* schedule */
+.button-line{
+	display: flex;
+	margin: 5px;
 }
