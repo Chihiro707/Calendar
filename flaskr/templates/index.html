@@ -44,18 +44,22 @@
 					</tbody>
 				</table>
 		
-				<button id ="previous-month">←</button>
+				<button id="previous-month">←</button>
 				<button id="next-month">→</button>
 			</div>
 		
-			<br/>
-			<a href="{{url_for('add_events')}}" class="add-schedule">予定を追加</a>
-		
+			<p class="add-schedule">
+				予定の追加は
+				<a href="{{url_for('add_events')}}" class="add-schedule-link">こちら</a>
+				から
+			</p>
 		</div>
 
 		<div class="schedule">
 			{% if date %}
 			<h2>{{date}}の予定</h2>
+			{% else %}
+			<h2>日付を選択してください</h2>
 			{% endif %}
 		
 			{% for event in dayevents %}
