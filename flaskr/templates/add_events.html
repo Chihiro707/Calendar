@@ -18,15 +18,34 @@
                 <th>コメント</th>
             </tr>
             <tr>
-                <td><input type="text" name="title" required="required"/></td>
-                <td><input type="date" name="date" required="required"/></td>
-                <td><input type="time" name="start_time"/></td>
-                <td><input type="time" name="end_time"/></td>
-                <td><textarea name="description"></textarea></td>
+                <td><input type="text" name="title" value="{{ title }}" required="required"/></td>
+                <td><input type="date" name="date" value="{{ date }}" required="required"/></td>
+                <td><input type="time" name="start_time" value="{{ start_time }}" required="required"/></td>
+                <td><input type="time" name="end_time" value="{{ end_time }}" required="required"/></td>
+                <td><textarea name="description">{{ description }}</textarea></td>
             </tr>
         </table>
+
         <input type="submit" value="予定を追加"/>
     </form>
+
+    {% if warning %}
+    <script>
+        if (confirm("この時間帯には既に予定が入っています。予定を追加しますか？")) {
+            // OKの場合
+            const row = document.createElement("input");
+            row.type = "hidden";
+            row.name = "force_add";
+            row.value = "1";
+            document.querySelector("form").appendChild(row);
+            document.querySelector("form").submit();
+        } else {
+            // キャンセルの場合
+            window.location.href = "{{ url_for('index') }}";
+        }
+    </script>
+    {% endif %}
+
 </body>
 
 </html>

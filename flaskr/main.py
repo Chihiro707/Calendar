@@ -11,7 +11,9 @@ def index():
 
     con = sqlite3.connect(DATABASE)
     con.row_factory = sqlite3.Row
-    dayevents = con.execute('SELECT * FROM events WHERE date = ?',(date,)).fetchall()
+    dayevents = con.execute(
+        'SELECT * FROM events WHERE date = ? ORDER BY start_time',
+        (date,)).fetchall()
     con.close()
 
     return render_template(
@@ -37,7 +39,40 @@ def add():
     start_time = request.form['start_time']
     end_time = request.form['end_time']
     description = request.form['description']
-    
+    force_add = request.form.get('force_add')
+
+    if force_add != '1':
+
+        #同じ日付の予定を取得
+        con = sqlite3.connect(DATABASE)
+        con.row_factory = sqlite3.Row
+        existing_events = con.execute(
+            'SELECT * FROM events WHERE date = ?',
+            (date,)).fetchall()
+        
+        con.close()
+
+        #ダブルブッキングのチェック
+        for event in existing_events:
+
+            start1 = event["start_time"]
+            end1 = event["end_time"]
+
+            start2 = start_time
+            end2 = end_time
+
+            if start1 < end2 and start2 < end1:
+                return render_template(
+                    'add_events.html',
+                    warning = True,
+                    title = title,
+                    date = date,
+                    start_time = start_time,
+                    end_time = end_time,
+                    description = description
+                )
+
+    #追加
     con = sqlite3.connect(DATABASE)
     con.execute("""
         INSERT INTO events(
@@ -69,7 +104,9 @@ def events():
     con = sqlite3.connect(DATABASE)
 
     con.row_factory = sqlite3.Row
-    dayevents = con.execute('SELECT * FROM events WHERE date = ?',(date,)).fetchall()
+    dayevents = con.execute(
+        'SELECT * FROM events WHERE date = ? ORDER BY start_time',
+        (date,)).fetchall()
     con.close()
 
     return render_template(
@@ -126,17 +163,19 @@ def edit_event(event_id):
         event = event
     )
 
-#予定の削除
-@app.route('/delete/<int:event_id>', methods = ['POST'])
-def delete_event(event_id):
-    
+#予定の削除2
+@app.route('/delete_event')
+def delete_event():
+
+    id = request.args.get("id")
     con = sqlite3.connect(DATABASE)
-    
+
+    con.row_factory = sqlite3.Row
     con.execute(
         'DELETE FROM events WHERE id = ?',
-        (event_id,)
-    )
-
+        (id,)
+        )
+    
     con.commit()
     con.close()
 

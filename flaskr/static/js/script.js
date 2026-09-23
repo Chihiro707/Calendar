@@ -91,3 +91,14 @@ previousButton.addEventListener("click", function () {
 
     createCalendar();
 })
+
+//予定の削除機能の追加
+const deleteEventButtons = document.querySelectorAll(".delete-event");
+deleteEventButtons.forEach(function(button) {
+    button.addEventListener("click", function () {
+        if(confirm("「" + button.dataset.eventTitle + "」の予定を本当に削除しますか？")){
+            window.location.href = "/delete_event?id=" + button.dataset.eventId;
+        }
+    })
+})
+
