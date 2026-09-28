@@ -69,9 +69,16 @@ flaskr/
 |Description|TEXT|詳細|
 
 ## Data Flow
-ユーザーが予定入力フォームにタイトル、日付、開始時刻を入力する。  
-登録ボタンを押すとFlaskがリクエストを受け取り、Pythonによって入力内容を確認する。  
-その後SQLiteにデータを保存し、カレンダー画面を再表示する。  
+### アプリ開始時
+```mermaid
+graph TB
+    A([Browser])-->|HTTP Request|B(Flask)
+    B-->|SQL Query|C(SQLite)
+    C-->|Query Result|B
+    B-->|render_template|D(index.html)
+    D-->|HTML Response|A
+    A-->|Load|E(script.js)
+```
 
 ## Error Handling
 * 存在しない日付に予定作成
