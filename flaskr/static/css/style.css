@@ -71,6 +71,10 @@ a:hover{
 	order: 2;
 }
 
+.has-event{
+	background-color: #ff6347;
+}
+
 #previous-month,
 #next-month{
 	width: 50px;

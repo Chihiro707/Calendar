@@ -38,15 +38,22 @@ function createCalendar () {
     for (let day = 1; day <= lastDate; day++) {
         const cell = document.createElement("td");
         cell.textContent = day;
+
+        const date =
+            year + "-" +
+            String(month + 1).padStart(2, "0") + "-" +
+            String(day).padStart(2, "0");
+
+        //予定がある日付にクラスを追加
+        if (event_dates.includes(date)) {
+            cell.classList.add("has-event");
+        }
+
+        //クリック機能の追加
         cell.addEventListener("click", function () {
-
-            const date =
-                year + "-" +
-                String(month + 1).padStart(2, "0") + "-" +
-                String(day).padStart(2, "0");
-
             window.location.href = "/?date=" + date;
         });
+
         row.appendChild(cell);
 
         //土曜日まで来たら次の行へ

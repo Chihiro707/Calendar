@@ -12,14 +12,25 @@ def index():
     con = sqlite3.connect(DATABASE)
     con.row_factory = sqlite3.Row
 
+    #予定がある日付を取得
+    events = con.execute(
+        'SELECT date FROM events'
+    ).fetchall()
+
+    event_dates = [event["date"] for event in events]
+
+    #指定された日付の予定を取得
     dayevents = con.execute(
         'SELECT * FROM events WHERE date = ? ORDER BY start_time',
-        (date,)).fetchall()
+        (date,)
+    ).fetchall()
+
     con.close()
 
     return render_template(
         'index.html',
         date = date,
+        event_dates = event_dates,
         dayevents = dayevents
     )
 
