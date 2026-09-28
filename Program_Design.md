@@ -69,6 +69,9 @@ flaskr/
 |Description|TEXT|詳細|
 
 ## Data Flow
+
+### 基本の流れ
+
 ```mermaid
 graph TB
     Browser([Browser])-->|HTTP Request|Flask(Flask)
@@ -81,6 +84,21 @@ graph TB
     js-->|date|check{Event?}
     check-->|Yes|hasevent(has-event)
     check-->|No|normal(Normal cell)
+```
+
+### 予定の追加
+```mermaid
+graph TB
+    Browser([Browser])-->|GET/add_events|Flask(Flask)
+    Flask-->|render_template|html(add_events.html)
+    html-->|POST/add|Flask
+    Flask-->|SELECT existing events|SQL(SQLite)
+    SQL-->check{Double booking?}
+    check-->|Yes|Warning(Warning)
+    Warning-->html
+    check-->|NO|insert(INSERT)
+    insert-->commit(Commit)
+    commit-->|redirect|Browser
 ```
 
 ## Error Handling
