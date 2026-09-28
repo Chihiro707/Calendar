@@ -45,7 +45,7 @@ function createCalendar () {
                 String(month + 1).padStart(2, "0") + "-" +
                 String(day).padStart(2, "0");
 
-            window.location.href = "/events?date=" + date;
+            window.location.href = "/?date=" + date;
         });
         row.appendChild(cell);
 

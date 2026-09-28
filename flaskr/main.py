@@ -11,6 +11,7 @@ def index():
 
     con = sqlite3.connect(DATABASE)
     con.row_factory = sqlite3.Row
+
     dayevents = con.execute(
         'SELECT * FROM events WHERE date = ? ORDER BY start_time',
         (date,)).fetchall()
@@ -94,26 +95,7 @@ def add():
     con.commit()
     con.close()
 
-    return redirect(url_for('index'))
-
-#カレンダー上の日付をクリックすると反応する
-@app.route('/events')
-def events():
-
-    date = request.args.get("date")
-    con = sqlite3.connect(DATABASE)
-
-    con.row_factory = sqlite3.Row
-    dayevents = con.execute(
-        'SELECT * FROM events WHERE date = ? ORDER BY start_time',
-        (date,)).fetchall()
-    con.close()
-
-    return render_template(
-        "index.html",
-        date=date,
-        dayevents=dayevents
-        )
+    return redirect(url_for('index', date = date))
 
 #予定の編集が行われたときに反応する
 @app.route('/edit/<int:event_id>', methods=['GET','POST'])
@@ -163,7 +145,7 @@ def edit_event(event_id):
         event = event
     )
 
-#予定の削除2
+#予定の削除
 @app.route('/delete_event')
 def delete_event():
 
@@ -171,6 +153,17 @@ def delete_event():
     con = sqlite3.connect(DATABASE)
 
     con.row_factory = sqlite3.Row
+
+    #削除する予定の日付を取得
+    event = con.execute(
+        'SELECT * FROM events WHERE id = ?',
+        (id,)
+    ).fetchone()
+
+    #削除
+    if event:
+        date = event["date"]
+
     con.execute(
         'DELETE FROM events WHERE id = ?',
         (id,)
@@ -179,4 +172,4 @@ def delete_event():
     con.commit()
     con.close()
 
-    return redirect(url_for('index'))
+    return redirect(url_for('index', date = date))

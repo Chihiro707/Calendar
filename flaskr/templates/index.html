@@ -17,8 +17,10 @@
 </head>
 
 <body>
-	
-	<script>const selectedDate = "{{date or ''}}"</script>
+	<!-- from Flask to JavaScript -->>
+	<script>
+		const selectedDate = "{{date or ''}}"
+	</script>
 	
 	<div class="container">
 
@@ -62,6 +64,9 @@
 			<h2>日付を選択してください</h2>
 			{% endif %}
 		
+			{% if not dayevents %}
+			<p>予定がありません。</p>
+			{% else %}
 			{% for event in dayevents %}
 	
 			<div>
@@ -77,6 +82,7 @@
 			<br/>
 	
 			{% endfor %}
+			{% endif %}
 		</div>
 		
 	</div>

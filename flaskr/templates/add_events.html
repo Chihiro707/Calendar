@@ -33,15 +33,16 @@
     <script>
         if (confirm("この時間帯には既に予定が入っています。予定を追加しますか？")) {
             // OKの場合
-            const row = document.createElement("input");
-            row.type = "hidden";
-            row.name = "force_add";
-            row.value = "1";
-            document.querySelector("form").appendChild(row);
+            const forceAdd = document.createElement("input");
+            forceAdd.type = "hidden";
+            forceAdd.name = "force_add";
+            forceAdd.value = "1";
+            document.querySelector("form").appendChild(forceAdd);
             document.querySelector("form").submit();
         } else {
             // キャンセルの場合
-            window.location.href = "{{ url_for('index') }}";
+            // date情報付きのindexページにリダイレクト
+            window.location.href = "/?date={{date}}"
         }
     </script>
     {% endif %}
