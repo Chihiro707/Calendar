@@ -69,15 +69,18 @@ flaskr/
 |Description|TEXT|詳細|
 
 ## Data Flow
-### アプリ開始時
 ```mermaid
 graph TB
-    A([Browser])-->|HTTP Request|B(Flask)
-    B-->|SQL Query|C(SQLite)
-    C-->|Query Result|B
-    B-->|render_template|D(index.html)
-    D-->|HTML Response|A
-    A-->|Load|E(script.js)
+    Browser([Browser])-->|HTTP Request|Flask(Flask)
+    Flask-->|SELECT|SQL(SQLite)
+    SQL-->|Query Result|Flask
+    Flask-->|date/event_dates/dayevents|Jinja2(Jinja2)
+    Jinja2-->|render_template|html(index.html)
+    html-->|HTML + event_dates|Browser
+    Browser-->|Load|js(script.js)
+    js-->|date|check{Event?}
+    check-->|Yes|hasevent(has-event)
+    check-->|No|normal(Normal cell)
 ```
 
 ## Error Handling
