@@ -57,7 +57,6 @@ flaskr/
 │   └── script.js　（JavaScriptによる画面操作）
 │
 └── calendar.db
-
 ```
 
 ## Database Design
@@ -73,7 +72,6 @@ flaskr/
 ## Data Flow
 
 ### 基本の流れ
-
 ```mermaid
 graph TB
     Browser([Browser])-->|HTTP Request|Flask(Flask)
@@ -113,7 +111,7 @@ graph TB
 * 予定のコピー、もしくは週ごとの予定作成機能
 * 今日に移動する
 * 通知機能（予定があれば前日に通知）
-* 10分刻み
+* 10分刻み(モード選択)
 
 ## memo
 * mermaid
