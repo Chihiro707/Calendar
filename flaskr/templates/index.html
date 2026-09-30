@@ -21,6 +21,7 @@
 	<script>
 		const selectedDate = "{{date or ''}}";
 		const event_dates = {{event_dates | tojson}};
+		const holidays = {{holidays | tojson}};
 	</script>
 	
 	<div class="container">
@@ -30,23 +31,26 @@
 			<h2 id="month"></h2>
 
 			<div class="switch-month">
-				<table class="calendar-table">
-					<thead>
-						<tr>
-							<th>日</th>
-							<th>月</th>
-							<th>火</th>
-							<th>水</th>
-							<th>木</th>
-							<th>金</th>
-							<th>土</th>
-						</tr>
-					</thead>
+				
+				<div class="calendar-table">
+					<table>
+						<thead>
+							<tr>
+								<th>日</th>
+								<th>月</th>
+								<th>火</th>
+								<th>水</th>
+								<th>木</th>
+								<th>金</th>
+								<th>土</th>
+							</tr>
+						</thead>
 
-					<tbody id="calendar">
-					</tbody>
-				</table>
-		
+						<tbody id="calendar">
+						</tbody>
+					</table>
+				</div>
+				
 				<button id="previous-month">←</button>
 				<button id="next-month">→</button>
 			</div>

@@ -1,4 +1,5 @@
 from flaskr import app
+from flaskr.holiday import get_holidays
 from flaskr.db import add_event, get_dates_with_events, get_events_by_date, get_event_by_id, update_event, delete_event
 from flask import render_template, request, redirect, url_for
 
@@ -12,11 +13,14 @@ def index():
     event_dates = [row["date"] for row in event_dates]
     dayevents = get_events_by_date(date)
 
+    holidays = get_holidays()
+
     return render_template(
         'index.html',
         date = date,
         event_dates = event_dates,
-        dayevents = dayevents
+        dayevents = dayevents,
+        holidays = holidays
     )
 
 #add_eventsのURLにリクエストが来るとadd_events.htmlを表示する

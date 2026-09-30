@@ -49,6 +49,14 @@ function createCalendar () {
             cell.classList.add("has-event");
         }
 
+        //祝日を追加
+        if (holidays[date]){
+            const holiday = document.createElement("span")
+            holiday.textContent = holidays[date];
+            holiday.classList.add("holiday");
+            cell.appendChild(holiday);
+        }
+
         //クリック機能の追加
         cell.addEventListener("click", function () {
             window.location.href = "/?date=" + date;
