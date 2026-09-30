@@ -1,4 +1,4 @@
-/flaskr/__pycache__/
-database.db
+/flaskr/__pycache__
+/flaskr/database.db
 memo.docx
 Program_Design_v1.0.docx
