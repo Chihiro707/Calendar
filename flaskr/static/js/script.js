@@ -37,7 +37,12 @@ function createCalendar () {
     //日付を追加
     for (let day = 1; day <= lastDate; day++) {
         const cell = document.createElement("td");
-        cell.textContent = day;
+        const textdate = document.createElement("span");
+        const holiday = document.createElement("span")
+        textdate.textContent = day;
+        textdate.classList.add("day-number");
+        cell.appendChild(textdate);
+        cell.appendChild(holiday);
 
         const date =
             year + "-" +
@@ -51,10 +56,10 @@ function createCalendar () {
 
         //祝日を追加
         if (holidays[date]){
-            const holiday = document.createElement("span")
+            //const holiday = document.createElement("span")
             holiday.textContent = holidays[date];
             holiday.classList.add("holiday");
-            cell.appendChild(holiday);
+            //cell.appendChild(holiday);
         }
 
         //クリック機能の追加
